@@ -1,53 +1,78 @@
 # Multi-Cloud DevOps Resource and Cost Governance Dashboard
 
-An enterprise-grade, budget-conscious telemetry dashboard pipeline designed to aggregate, parse, persist, and visualize infrastructure usage and cost metrics across a multi-cloud topography. Phase 1 establishes the baseline infrastructure using Amazon Web Services (AWS) data channels paired with local storage and analytics visualization engines, completely eliminating cloud-hosting overhead fees.
+An enterprise-grade, budget-conscious telemetry dashboard pipeline designed to aggregate, parse, persist, and visualize infrastructure usage and cost metrics across a multi-cloud topography. The architecture is explicitly designed to handle programmatic cloud data stream collections, multi-engine relational storage routing, and automated closed-loop remediation mitigation workflows.
 
 ---
 
-## 📊 System Architecture Strategy
-The tracking and mitigation loops cycle across decoupled runtime boundaries, shifting seamlessly between public cloud APIs and isolated local service environments.
+## 📊 Systems Topology & Telemetry Architecture Diagram
+
+The monitoring network architecture organizes workloads into decoupled processing layers. The structural layout traces telemetry processing events from initial cloud API ingestion points down through local transactional database persistence frameworks, alongside synchronous webhook incident control tracks.
 
 ```text
-==================================================================================================
-                 DEVOPS MULTI-CLOUD TELEMETRY & ACTIVE GOVERNANCE PIPELINE
-==================================================================================================
++-------------------------------------------------------------------------------------------------------------------------------+
 
-  +--------------------------------------------------------------------------------------------+
+|                                            MULTICLOUD INFRASTRUCTURE RESOURCE LAYER                                           |
+|                                                                                                                               |
+|   +--------------------------+          +---------------------------+          +--------------------------+                   |
+|   |  AMAZON WEB SERVICES     |          |   MICROSOFT AZURE (*)     |          |  GOOGLE CLOUD PLATFORM(*)|                   |
+|   |  ====================    |          |   ===================     |          |  ======================= |                   |
+|   |  * Cost Explorer API     |          |   * Consumption API       |          |  * Cloud Billing API     |                   |
+|   |  * EC2 Fleet Discovery   |          |   * Compute Virtual Mach. |          |  * Compute Engine Engine |                   |
+|   +--------------------------+          +---------------------------+          +--------------------------+                   |
++-------------------------------------------------------------------------------------------------------------------------------+
 
-  |                                   AMAZON WEB SERVICES (AWS)                                |
-  +--------------------------------------------------------------------------------------------+
-         |                                             ^
+              |                                                 |                                      |
+              | 1. Ingest Inbound Telemetry Payload Streams     | (* Planned Expansion Sprints)        |
+              v                                                 v                                      v
++-------------------------------------------------------------------------------------------------------------------------------+
 
-         | 1. Ingest Inbound                           | 5. Dispatch Emergency
-         |    Telemetry Schema Data                    |    Infrastructure Termination Call
-         v                                             |
-  +--------------------------------------------------------------------------------------------+
+|                                            DATA STREAM INGESTION & PIPELINE LAYER                                             |
+|                                                                                                                               |
+|   +-----------------------------------------------------------------------------------------------------------------------+   |
+|   |  INGESTION DISCOVERY CORE (App: backend/aws_aggregator.py)                                                            |   |
+|   |  ========================================================                                                             |   |
+|   |  * Runtime Engine Context: Python 3.x Script Execution Daemon                                                         |   |
+|   |  * Internal Module Libraries: Ingests Boto3 SDK Core APIs / Parses Structural Multi-Nested JSON Payload Blocks        |   |
+|   +-----------------------------------------------------------------------------------------------------------------------+   |
++-------------------------------------------------------------------------------------------------------------------------------+
+              |                                                                                        ^
 
-  |                                   LOCAL SYSTEM WORKSPACE                                   |
-  |                                                                                            |
-  |  +---------------------------+                     +------------------------------------+  |
-  |  |  DATA EXTRACTION ENGINE   |   2. Standardize    |      AUTOMATED CONTROL SERVICE     |  |
-  |  |  ======================   |   Flat JSON Payload |      =========================     |  |
-  |  |  App: aws_aggregator.py   | ------------------> |      App: app.py (Flask Server)    |  |
-  |  |  Runtime: Python 3.x      |                     |      Network Port: 5000            |  |
-  |  +---------------------------+                     +------------------------------------+  |
-  |                |                                                     ^                     |
-  |                | 3. Execute Secure Relational                        |                     |
-  |                |    SQL Write Transaction                            | 4. Issue Async POST |
-  |                v                                                     |    Webhook Request  |
-  |  +---------------------------+                     +------------------------------------+  |
-  |  |   PERSISTENT STORAGE BD   |                     |     ANALYTICS INTERFACE GRAPH      |  |
-  |  |   =====================   | ------------------> |     =========================      |  |
-  |  |   Engine: PostgreSQL      |  4. Run Continuous  |     Engine: Grafana OSS            |  |
-  |  |   Database: devops_metrics|     SQL Query Polling|     Network Port: 3000           |  |
-  |  |   Network Port: 5432      |                     |     HTML UI Action Control Panel   |  |
-  |  +---------------------------+                     +------------------------------------+  |
-  +--------------------------------------------------------------------------------------------+
+              | 2. Reformat to Standard Flat Dict Structure                                            | 5. Dispatch Sync POST
+              v                                                                                        |    Emergency API Kill
++--------------------------------------------------------------------------------------------------+   |    Command String
 
-==================================================================================================
-              DATAFLOW VECTOR TRACK: TELEMETRY INGESTION  ===> ===> ===> ===>
-              CONTROL FLIGHT TRACK:  EMERGENCY MITIGATION ===> ===>
-==================================================================================================
+|                                     LOCAL SYSTEM STORAGE & REPOSITORY INTERFACE LAYER            |   |
+|                                                                                                  |   |
+|   +---------------------------------------+              +-----------------------------------+   |   |
+|   | PERSISTENT TRANSACTIONAL DATA ENGINE  |              | AUTOMATED RESPONSE GATEWAY INTERF.|   |   |
+|   | ====================================  |              | ================================= |   |   |
+|   | * Engine Type: PostgreSQL Relational  |              | * Middleware App: backend/app.py  |   |   |
+|   | * Database Allocation: devops_metrics |              | * Micro-Framework: Python Flask   |   |   |
+|   | * Operational Port Mapping: 5432      |              | * Security Protocol: Flask-CORS   |   |   |
+|   | * Dynamic Schema Table: cloud_metrics |              | * Operational Port Mapping: 5000  |   |   |
+|   +---------------------------------------+              +-----------------------------------+   |   |
++--------------------------------------------------------------------------------------------------+   |
+
+              |                                                                                        |
+              | 3. Continuous Active SQL Read Polling                                                  | 4. Issue Asynchronous
+              v                                                                                        |    Webhook Control Trigger
++--------------------------------------------------------------------------------------------------+   |
+
+|                                    ANALYTICS INTERFACE & METRICS PRESENTATION LAYER              |   |
+|                                                                                                  |   |
+|   +------------------------------------------------------------------------------------------+   |   |
+|   | PERFORMANCE ANALYTICS UI WORKSPACE (Engine: Grafana OSS | Local Network Port: 3000)       |   |   |
+|   | ======================================================================================== |   |   |
+|   | * Panel View 1: Real-Time Live Monthly MTD Budget Expenditure Tracker (Stat Model UI)    | --+   |
+|   | * Panel View 2: Chronological Active Compute Cluster Infrastructure Node Graph Tracker   |       |
+|   | * Control Center Panel: HTML Action Interface Configuration (Interactive JS Trigger Box)  |       |
+|   +------------------------------------------------------------------------------------------+       |
++------------------------------------------------------------------------------------------------------+
+
+=================================================================================================================================
+     DATA VECTOR PATHWAYS:  === Telemetry Ingestion Ingress Pipeline ===> ===> ===> ===>
+     REMEDIATION PATHWAYS:  === Emergency Automated Incident Control Switch ===> ===> ===>
+=================================================================================================================================
 ```
 
 ---
