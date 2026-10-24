@@ -3,6 +3,52 @@
 An enterprise-grade, budget-conscious telemetry dashboard pipeline designed to aggregate, parse, persist, and visualize infrastructure usage and cost metrics across a multi-cloud topography. Phase 1 establishes the baseline infrastructure using Amazon Web Services (AWS) data channels paired with local storage and analytics visualization engines, completely eliminating cloud-hosting overhead fees.
 
 ---
+### System Architecture Visuals
+The tracking and mitigation loops cycle across decoupled runtime boundaries, shifting seamlessly between public cloud APIs and isolated local service environments.
+
+
+==================================================================================================
+                 DEVOPS MULTI-CLOUD TELEMETRY & ACTIVE GOVERNANCE PIPELINE
+==================================================================================================
+
+  +--------------------------------------------------------------------------------------------+
+
+  |                                   AMAZON WEB SERVICES (AWS)                                |
+  +--------------------------------------------------------------------------------------------+
+         |                                             ^
+
+         | 1. Ingest Inbound                           | 5. Dispatch Emergency
+         |    Telemetry Schema Data                    |    Infrastructure Termination Call
+         v                                             |
+  +--------------------------------------------------------------------------------------------+
+
+  |                                   LOCAL SYSTEM WORKSPACE                                   |
+  |                                                                                            |
+  |  +---------------------------+                     +------------------------------------+  |
+  |  |  DATA EXTRACTION ENGINE   |   2. Standardize    |      AUTOMATED CONTROL SERVICE     |  |
+  |  |  ======================   |   Flat JSON Payload |      =========================     |  |
+  |  |  App: aws_aggregator.py   | ------------------> |      App: app.py (Flask Server)    |  |
+  |  |  Runtime: Python 3.x      |                     |      Network Port: 5000            |  |
+  |  +---------------------------+                     +------------------------------------+  |
+  |                |                                                     ^                     |
+  |                | 3. Execute Secure Relational                        |                     |
+  |                |    SQL Write Transaction                            | 4. Issue Async POST |
+  |                v                                                     |    Webhook Request  |
+  |  +---------------------------+                     +------------------------------------+  |
+  |  |   PERSISTENT STORAGE BD   |                     |     ANALYTICS INTERFACE GRAPH      |  |
+  |  |   =====================   | ------------------> |     =========================      |  |
+  |  |   Engine: PostgreSQL      |  4. Run Continuous  |     Engine: Grafana OSS            |  |
+  |  |   Database: devops_metrics|     SQL Query Polling|     Network Port: 3000           |  |
+  |  |   Network Port: 5432      |                     |     HTML UI Action Control Panel   |  |
+  |  +---------------------------+                     +------------------------------------+  |
+  +--------------------------------------------------------------------------------------------+
+
+==================================================================================================
+              DATAFLOW VECTOR TRACK: TELEMETRY INGESTION  ===> [1] ===> [2] ===> [3] ===> [4]
+              CONTROL FLIGHT TRACK:  EMERGENCY MITIGATION ===> [4] ===> [5]
+==================================================================================================
+
+
 
 ## 🛠 Complete Architectural Implementation Blueprint
 
