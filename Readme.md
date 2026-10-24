@@ -6,7 +6,7 @@ An enterprise-grade, budget-conscious telemetry dashboard pipeline designed to a
 ### System Architecture Visuals
 The tracking and mitigation loops cycle across decoupled runtime boundaries, shifting seamlessly between public cloud APIs and isolated local service environments.
 
-```text
+```
 ==================================================================================================
                  DEVOPS MULTI-CLOUD TELEMETRY & ACTIVE GOVERNANCE PIPELINE
 ==================================================================================================
