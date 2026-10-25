@@ -216,18 +216,31 @@ Phase 2 maps the expansion of the multi-cloud dashboard telemetry pipeline into 
 * **Role Definition Assignment:** The Service Principal entity was assigned a specialized security scope mapped directly to the **`Reader`** role within the active subscription directory framework. This limits script permissions to descriptive discovery parameters and cost allocations, blocking any ability to spin up billable assets.
 * **Cryptographic Vault Injection:** Authentication handshakes are authorized dynamically using isolated environmental profiles (`.env`), binding Client IDs, Tenant IDs, and Client Secrets securely outside code execution arrays.
 
-### 2. Relational Multi-Cloud Ingestion Schema
-Telemetry data collected from Azure Python pipelines is mapped directly into our central relational table, utilizing targeted data types to ensure consistent parsing behavior:
+---
 
-```sql
-/* Query mapping current Azure infrastructure footprints */
-SELECT recorded_at AS time, active_nodes FROM cloud_metrics WHERE provider = 'AZURE' ORDER BY recorded_at ASC;
+### 2. Isolated Azure Script Compilation Execution
+The backend data pipeline was expanded via `backend/azure_aggregator.py` using the official `azure-identity` and `azure-mgmt-consumption` client ecosystems to parse modern billing models. 
+
+```bash
+py azure_aggregator.py
 ```
 
-### 3. Feature Branch Version Isolation Management
-To maintain sound code tracking practices, all Azure development scripts were managed inside an isolated Git tracking workspace before deployment to primary release versions:
-* **Branch Isolation Tracking ID:** `feature/azure-base`
-* **Commit Ingestion Hash Profile:** `feat: integrate azure metrics extraction engine and postgres persistence`
+#### 📍 Azure Visual Reference Point 1
+
+> ![Azure Integrated Telemetry Ingestion Output](./assets/08_azure_pipeline_success.png)
+
+#### 📍 Azure Visual Reference Point 2
+ 
+> ![Azure Aggregator Standalone Data Printout](./assets/09_azure_json_payload.png)
+
+---
+
+### 3. Integrated Presentation Dashboard Panels
+The dashboard grid layout inside Grafana was upgraded by writing targeted relational PostgreSQL SQL string commands to display Azure expenditures alongside active infrastructure server metrics in a unified user view.
+
+#### 📍 Azure Visual Reference Point 3
+
+> ![Azure Telemetry Interface Presentation Panel](./assets/10_azure_grafana_view.png)
 
 
 ## ⚠️ Core Engineering Roadblocks & Strategic Resolution Matrix
