@@ -3,7 +3,7 @@
 An enterprise-grade, budget-conscious telemetry dashboard pipeline designed to aggregate, parse, persist, and visualize infrastructure usage and cost metrics across a multi-cloud topography. The architecture is explicitly designed to handle programmatic cloud data stream collections, multi-engine relational storage routing, and automated closed-loop remediation mitigation workflows.
 
 ---
-
+## Phase 1 Deliverable: Amazon AWS Cloud Integration
 ## 📊 Systems Topology & Telemetry Architecture Diagram
 
 The monitoring network architecture organizes workloads into decoupled processing layers. The structural layout traces telemetry processing events from initial cloud API ingestion points down through local transactional database persistence frameworks, alongside synchronous webhook incident control tracks.
@@ -208,6 +208,27 @@ To change the dashboard from a passive readout into an active cost governance co
 > ![Interactive Remediation Action Button Panel](./assets/07_emergency_kill_switch.png)
 
 ---
+## Phase 2 Deliverable: Microsoft Azure Cloud Integration
+
+### 1. Abstract & Azure IAM Entitlements Configuration
+Phase 2 maps the expansion of the multi-cloud dashboard telemetry pipeline into the Microsoft Azure public cloud ecosystem. To ensure unified tracking patterns and adhere to strict budget parameters, credential authorizations were configured using Azure Active Directory App Registrations to establish a dedicated Service Principal identity (`azure-dashboard-aggregator`).
+
+* **Role Definition Assignment:** The Service Principal entity was assigned a specialized security scope mapped directly to the **`Reader`** role within the active subscription directory framework. This limits script permissions to descriptive discovery parameters and cost allocations, blocking any ability to spin up billable assets.
+* **Cryptographic Vault Injection:** Authentication handshakes are authorized dynamically using isolated environmental profiles (`.env`), binding Client IDs, Tenant IDs, and Client Secrets securely outside code execution arrays.
+
+### 2. Relational Multi-Cloud Ingestion Schema
+Telemetry data collected from Azure Python pipelines is mapped directly into our central relational table, utilizing targeted data types to ensure consistent parsing behavior:
+
+```sql
+/* Query mapping current Azure infrastructure footprints */
+SELECT recorded_at AS time, active_nodes FROM cloud_metrics WHERE provider = 'AZURE' ORDER BY recorded_at ASC;
+```
+
+### 3. Feature Branch Version Isolation Management
+To maintain sound code tracking practices, all Azure development scripts were managed inside an isolated Git tracking workspace before deployment to primary release versions:
+* **Branch Isolation Tracking ID:** `feature/azure-base`
+* **Commit Ingestion Hash Profile:** `feat: integrate azure metrics extraction engine and postgres persistence`
+
 
 ## ⚠️ Core Engineering Roadblocks & Strategic Resolution Matrix
 
